@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 pygame.font.init()
 
-TILE_FONT = pygame.font.SysFont('Open Sans ExtraBold', 40)
+TILE_FONT = pygame.font.SysFont('Open Sans ExtraBold', 69)
 WIDTH = 1000
 HEIGHT = 1000
 BACKGROUND_COLOR = (250,248,239)
@@ -15,8 +15,19 @@ pygame.display.set_caption("Scuffed 2048")
 
 board = logic.initBoard(4, 4)
 
+
 def DRAW_WINDOW():
     window.fill(BACKGROUND_COLOR)
+    
+    for i in range(0, len(board) + 1):
+        pygame.draw.line(window, (0, 0, 0), (185, (i*150) + 150), (785, (i*150) + 150), width=8)
+
+    for i in range(0, len(board[0]) + 1):
+        pygame.draw.line(window, (0, 0, 0), ((i*150) + 185, 150), ((i*150) + 185, 750), width=8)
+
+    for i in range(0, len(board)):
+        for j in range(0, len(board[0])):
+            window.blit(TILE_FONT.render(str(board[j][i]), True, (0, 0, 0)), ((i*150) + 250, (j*150) + 200))
 
     pygame.display.update()
 
@@ -26,24 +37,29 @@ def main():
     logic.addTile(board)
     logic.addTile(board)
     
+    score = 0
+
     while running:
         clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                break
+                return score
+                
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
-                    logic.up(board)
+                    score += logic.up(board)
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    logic.left(board)
+                    score += logic.left(board)
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    logic.down(board)
+                    score += logic.down(board)
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    logic.right(board)
-        for row in board:
-            print(row)
-        print()
+                    score += logic.right(board)
+
+        if logic.gameOver(board):
+            running = False
+            return score
+
         DRAW_WINDOW()
 
 if __name__ == '__main__':
