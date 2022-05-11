@@ -37,54 +37,23 @@ def left(board):
     score = 0
     merged = set()
     AddTile = False
-    for i in range(1, 0, -1):
-        for j in range(0, 4):
-            if board[j][i] == 0:
-                continue
-            if board[j][i-1] == board[j][i] and (j, i) not in merged:
-                board[j][i-1] *= 2
-                board[j][i] = 0
-                score += board[j][i-1]
-                for x in range(0, j + 1):
-                    merged.add((x, i))
-                AddTile = True
-            else:
-                if board[j][i-1] == 0:
-                    board[j][i-1] = board[j][i]
+    for p in range(1, len(board[0])):
+        for i in range(p, 0, -1):
+            for j in range(0, len(board)):
+                if board[j][i] == 0:
+                    continue
+                if board[j][i-1] == board[j][i] and (j, i) not in merged:
+                    board[j][i-1] *= 2
                     board[j][i] = 0
+                    score += board[j][i-1]
+                    for x in range(0, j + 1):
+                        merged.add((x, i))
                     AddTile = True
-    for i in range(2, 0, -1):
-        for j in range(0, 4):
-            if board[j][i] == 0:
-                continue
-            if board[j][i-1] == board[j][i] and (j, i) not in merged:
-                board[j][i-1] *= 2
-                board[j][i] = 0
-                score += board[j][i-1]
-                for x in range(0, j + 1):
-                    merged.add((x, i))
-                AddTile = True
-            else:
-                if board[j][i-1] == 0:
-                    board[j][i-1] = board[j][i]
-                    board[j][i] = 0
-                    AddTile = True
-    for i in range(3, 0, -1):
-        for j in range(0, 4):
-            if board[j][i] == 0:
-                continue
-            if board[j][i-1] == board[j][i] and (j, i) not in merged:
-                board[j][i-1] *= 2
-                board[j][i] = 0
-                score += board[j][i-1]
-                for x in range(0, j + 1):
-                    merged.add((x, i))
-                AddTile = True
-            else:
-                if board[j][i-1] == 0:
-                    board[j][i-1] = board[j][i]
-                    board[j][i] = 0
-                    AddTile = True
+                else:
+                    if board[j][i-1] == 0:
+                        board[j][i-1] = board[j][i]
+                        board[j][i] = 0
+                        AddTile = True
     if AddTile:
         addTile(board)
     return score
@@ -94,54 +63,24 @@ def right(board):
     merged = set()
     AddTile = False
 
-    for i in range(2, 3):
-        for j in range(0, 4):
-            if board[j][i] == 0:
-                continue
-            if board[j][i] == board[j][i+1] and (j, i) not in merged:
-                board[j][i+1] *= 2
-                board[j][i] = 0
-                score += board[j][i+1]
-                for x in range(i+1, len(board)):
-                    merged.add((j, x))
-                AddTile = True
-            else:
-                if board[j][i+1] == 0:
-                    board[j][i+1] = board[j][i]
+    for p in range(len(board) -2, -1, -1):
+        for i in range(p, len(board[0]) - 1):
+            for j in range(0, len(board)):
+                if board[j][i] == 0:
+                    continue
+                if board[j][i] == board[j][i+1] and (j, i) not in merged:
+                    board[j][i+1] *= 2
                     board[j][i] = 0
+                    score += board[j][i+1]
+                    for x in range(i+1, len(board)):
+                        merged.add((j, x))
                     AddTile = True
-    for i in range(1, 3):
-        for j in range(0, 4):
-            if board[j][i] == 0:
-                continue
-            if board[j][i] == board[j][i+1] and (j, i) not in merged:
-                board[j][i+1] *= 2
-                board[j][i] = 0
-                score += board[j][i+1]
-                for x in range(i+1, len(board)):
-                    merged.add((j, x))
-                AddTile = True
-            else:
-                if board[j][i+1] == 0:
-                    board[j][i+1] = board[j][i]
-                    board[j][i] = 0
-                    AddTile = True
-    for i in range(0, 3):
-        for j in range(0, 4):
-            if board[j][i] == 0:
-                continue
-            if board[j][i] == board[j][i+1] and (j, i) not in merged:
-                board[j][i+1] *= 2
-                board[j][i] = 0
-                score += board[j][i+1]
-                for x in range(i+1, len(board)):
-                    merged.add((j, x))
-                AddTile = True
-            else:
-                if board[j][i+1] == 0:
-                    board[j][i+1] = board[j][i]
-                    board[j][i] = 0
-                    AddTile = True
+                else:
+                    if board[j][i+1] == 0:
+                        board[j][i+1] = board[j][i]
+                        board[j][i] = 0
+                        AddTile = True
+    
     if AddTile:
         addTile(board)
     return score
@@ -150,54 +89,24 @@ def up(board):
     score = 0
     merged = set()
     AddTile = False
-    for i in range(1, 0, -1):
-        for j in range(0, 4):
-            if board[i][j] == 0:
-                continue
-            if board[i-1][j] == board[i][j] and (i, j) not in merged:
-                board[i-1][j] *= 2
-                board[i][j] = 0
-                score += board[i-1][j]
-                for x in range(0, i+1):
-                    merged.add((x, j))
-                AddTile = True
-            else:
-                if board[i-1][j] == 0:
-                    board[i-1][j] = board[i][j]
+    for p in range(1, len(board)):
+        for i in range(p, 0, -1):
+            for j in range(0, len(board[0])):
+                if board[i][j] == 0:
+                    continue
+                if board[i-1][j] == board[i][j] and (i, j) not in merged:
+                    board[i-1][j] *= 2
                     board[i][j] = 0
+                    score += board[i-1][j]
+                    for x in range(0, i+1):
+                        merged.add((x, j))
                     AddTile = True
-    for i in range(2, 0, -1):
-        for j in range(0, 4):
-            if board[i][j] == 0:
-                continue
-            if board[i-1][j] == board[i][j] and (i, j) not in merged:
-                board[i-1][j] *= 2
-                board[i][j] = 0
-                score += board[i-1][j]
-                for x in range(0, i+1):
-                    merged.add((x, j))
-                AddTile = True
-            else:
-                if board[i-1][j] == 0:
-                    board[i-1][j] = board[i][j]
-                    board[i][j] = 0
-                    AddTile = True
-    for i in range(3, 0, -1):
-        for j in range(0, 4):
-            if board[i][j] == 0:
-                continue
-            if board[i-1][j] == board[i][j] and (i, j) not in merged:
-                board[i-1][j] *= 2
-                board[i][j] = 0
-                score += board[i-1][j]
-                for x in range(0, i+1):
-                    merged.add((x, j))
-                AddTile = True
-            else:
-                if board[i-1][j] == 0:
-                    board[i-1][j] = board[i][j]
-                    board[i][j] = 0
-                    AddTile = True
+                else:
+                    if board[i-1][j] == 0:
+                        board[i-1][j] = board[i][j]
+                        board[i][j] = 0
+                        AddTile = True
+
     if AddTile:
         addTile(board)
     return score
@@ -206,54 +115,25 @@ def down(board):
     score = 0
     merged = set()
     AddTile = False
-    for i in range(2, 3):
-        for j in range(0, 4):
-            if board[i][j] == 0:
-                continue
-            if board[i][j] == board[i+1][j] and (i+1, j) not in merged:
-                board[i+1][j] *= 2
-                board[i][j] = 0
-                score += board[i+1][j]
-                for x in range(i+1, len(board)):
-                    merged.add((x, j))
-                AddTile = True
-            else:
-                if board[i+1][j] == 0:
-                    board[i+1][j] = board[i][j]
+    for p in range(len(board) - 2, -1, -1):
+        for i in range(p, len(board) - 1):
+            for j in range(0, len(board[0])):
+                print(i, j)
+                if board[i][j] == 0:
+                    continue
+                if board[i][j] == board[i+1][j] and (i+1, j) not in merged:
+                    board[i+1][j] *= 2
                     board[i][j] = 0
+                    score += board[i+1][j]
+                    for x in range(i+1, len(board)):
+                        merged.add((x, j))
                     AddTile = True
-    for i in range(1, 3):
-        for j in range(0, 4):
-            if board[i][j] == 0:
-                continue
-            if board[i][j] == board[i+1][j] and (i+1, j) not in merged:
-                board[i+1][j] *= 2
-                board[i][j] = 0
-                score += board[i+1][j]
-                for x in range(i+1, len(board)):
-                    merged.add((x, j))
-                AddTile = True
-            else:
-                if board[i+1][j] == 0:
-                    board[i+1][j] = board[i][j]
-                    board[i][j] = 0
-                    AddTile = True
-    for i in range(0, 3):
-        for j in range(0, 4):
-            if board[i][j] == 0:
-                continue
-            if board[i][j] == board[i+1][j] and (i+1, j) not in merged:
-                board[i+1][j] *= 2
-                board[i][j] = 0
-                score += board[i+1][j]
-                for x in range(i+1, len(board)):
-                    merged.add((x, j))
-                AddTile = True
-            else:
-                if board[i+1][j] == 0:
-                    board[i+1][j] = board[i][j]
-                    board[i][j] = 0
-                    AddTile = True
+                else:
+                    if board[i+1][j] == 0:
+                        board[i+1][j] = board[i][j]
+                        board[i][j] = 0
+                        AddTile = True
+    
     if AddTile:
         addTile(board)
     return score
@@ -274,3 +154,17 @@ def gameOver(board):
                 return False
 
     return True
+
+if __name__ == '__main__':
+    board = initBoard(3, 5)
+    addTile(board)
+    addTile(board)
+
+    for row in board:
+        print(row)
+
+    print()
+
+    up(board)
+    for row in board:
+        print(row)

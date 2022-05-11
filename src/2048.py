@@ -27,9 +27,9 @@ def DRAW_WINDOW():
 
     for i in range(0, len(board)):
         for j in range(0, len(board[0])):
-            window.blit(TILE_FONT.render(str(board[j][i]), True, (0, 0, 0)), ((i*150) + 250, (j*150) + 200))
+            window.blit(TILE_FONT.render(str(board[i][j]), True, (0, 0, 0)), ((j*150) + 250, (i*150) + 200))
 
-    pygame.display.update()
+    pygame.display.flip()
 
 def main():
     running = True
