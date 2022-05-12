@@ -15,7 +15,7 @@ clock = pygame.time.Clock()
 window = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption("Scuffed 2048")
 
-board = logic.initBoard(4, 4)
+board = logic.initBoard(5, 5)
 
 def findMove(board):
     dummy_board = copy.deepcopy(board)
@@ -58,25 +58,21 @@ def findMove(board):
         direction = 3
 
     return direction
-
     
-
-
-
 def DRAW_WINDOW():
     window.fill(BACKGROUND_COLOR)
     
     for i in range(0, len(board) + 1):
-        pygame.draw.line(window, (0, 0, 0), (185, (i*150) + 150), (785, (i*150) + 150), width=8)
+        pygame.draw.line(window, (0, 0, 0), (185, (i*150) + 150), ((150*len(board)) + 185, (i*150) + 150), width=8)
 
     for i in range(0, len(board[0]) + 1):
-        pygame.draw.line(window, (0, 0, 0), ((i*150) + 185, 150), ((i*150) + 185, 750), width=8)
+        pygame.draw.line(window, (0, 0, 0), ((i*150) + 185, 150), ((i*150) + 185, (150*len(board[0])) + 150), width=8)
 
     for i in range(0, len(board)):
         for j in range(0, len(board[0])):
-            window.blit(TILE_FONT.render(str(board[j][i]), True, (0, 0, 0)), ((i*150) + 250, (j*150) + 200))
+            window.blit(TILE_FONT.render(str(board[i][j]), True, (0, 0, 0)), ((j*150) + 250, (i*150) + 200))
 
-    pygame.display.update()
+    pygame.display.flip()
 
 def main():
     running = True

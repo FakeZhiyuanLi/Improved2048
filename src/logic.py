@@ -63,7 +63,7 @@ def right(board):
     merged = set()
     AddTile = False
 
-    for p in range(len(board) -2, -1, -1):
+    for p in range(len(board[0]) -2, -1, -1):
         for i in range(p, len(board[0]) - 1):
             for j in range(0, len(board)):
                 if board[j][i] == 0:
@@ -118,7 +118,6 @@ def down(board):
     for p in range(len(board) - 2, -1, -1):
         for i in range(p, len(board) - 1):
             for j in range(0, len(board[0])):
-                print(i, j)
                 if board[i][j] == 0:
                     continue
                 if board[i][j] == board[i+1][j] and (i+1, j) not in merged:
