@@ -15,7 +15,7 @@ clock = pygame.time.Clock()
 window = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption("Scuffed 2048")
 
-board = logic.initBoard(5, 5)
+board = logic.initBoard(4, 4)
 
 def findMove(board):
     dummy_board = copy.deepcopy(board)
